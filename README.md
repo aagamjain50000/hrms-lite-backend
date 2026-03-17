@@ -17,7 +17,7 @@ Lightweight HRMS app to manage **employees** and track **daily attendance**.
   - View attendance records (filter by employee and date)
 
 ## Project structure
-- `hrms-frontned/`: frontend (Vite)
+- `hrms-frontend/`: frontend (Vite)
 - `hrms_backend/`, `employee/`, `attendance/`, `common/`: backend (Django project + apps)
 
 ## Run locally
@@ -57,11 +57,11 @@ Backend base URL: `http://127.0.0.1:8000/api`
 Prereqs: Node.js 18+
 
 ```bash
-cd hrms-frontned
+cd hrms-frontend
 npm install
 ```
 
-Create `hrms-frontned/.env`:
+Create `hrms-frontend/.env`:
 
 ```bash
 VITE_API_URL=http://127.0.0.1:8000/api

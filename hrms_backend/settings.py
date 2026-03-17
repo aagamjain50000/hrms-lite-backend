@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 import os
 from pathlib import Path
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,17 +22,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 SECRET_KEY = os.environ.get(
-    "DJANGO_SECRET_KEY",
-    "django-insecure-566^(=(%-v@f!wywq%(a2a4$1kl+9u)fktiod=q8=f2)8u$bu_"
-)
+    "DJANGO_SECRET_KEY")
 
-DEBUG = os.environ.get("DJANGO_DEBUG", "1") in ("1", "true", "True", "yes", "YES")
+DEBUG = os.environ.get("DJANGO_DEBUG", "False") == "True"
 
-ALLOWED_HOSTS = [
-    h.strip()
-    for h in os.environ.get("DJANGO_ALLOWED_HOSTS", "localhost,127.0.0.1").split(",")
-    if h.strip()
-]
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -51,6 +46,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     "corsheaders.middleware.CorsMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -62,14 +58,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'hrms_backend.urls'
 
-if DEBUG:
-    CORS_ALLOW_ALL_ORIGINS = True
-else:
-    CORS_ALLOWED_ORIGINS = [
-        o.strip()
-        for o in os.environ.get("CORS_ALLOWED_ORIGINS", "").split(",")
-        if o.strip()
-    ]
+CORS_ALLOW_ALL_ORIGINS = True
 
 TEMPLATES = [
     {
@@ -94,14 +83,7 @@ WSGI_APPLICATION = 'hrms_backend.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get("DB_NAME", "hrms"),
-        'USER': os.environ.get("DB_USER", "postgres"),
-        'PASSWORD': os.environ.get("DB_PASSWORD", "admin"),
-        'HOST': os.environ.get("DB_HOST", "localhost"),
-        'PORT': os.environ.get("DB_PORT", "5432"),
-    }
+    "default": dj_database_url.config(default=os.getenv("DATABASE_URL"))
 }
 
 
@@ -148,8 +130,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+CSRF_TRUSTED_ORIGINS = [
+    "https://*.onrender.com",
+]
