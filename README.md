@@ -1,5 +1,9 @@
 # HRMS Lite (Full-Stack Assignment)
 
+**Live Application URL:** [https://hrms-lite-frontend-nine-iota.vercel.app/](https://hrms-lite-frontend-nine-iota.vercel.app/)  
+**GitHub Repository (Backend):** [https://github.com/aagamjain50000/hrms-lite-backend](https://github.com/aagamjain50000/hrms-lite-backend)
+**GitHub Repository (Frontend):** [https://github.com/aagamjain50000/hrms-lite-frontend](https://github.com/aagamjain50000/hrms-lite-frontend)
+
 Lightweight HRMS app to manage **employees** and track **daily attendance**.
 
 ## Tech stack
